@@ -24,7 +24,7 @@ const initialState = [
 ];
 
 Notify.init({
-  borderRadius: '10px',
+  borderRadius: '11px',
   position: 'top-right',
   width: '400px',
   timeout: 4000,
