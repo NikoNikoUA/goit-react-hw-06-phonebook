@@ -14,7 +14,7 @@ import {
   ContactsHeading,
   MainHeading,
   NoContactsText,
-} from './Container';
+} from './Container.styled';
 
 const initialState = [
   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
