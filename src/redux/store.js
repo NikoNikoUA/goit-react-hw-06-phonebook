@@ -1,39 +1,25 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { createReducer, createAction } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { contactsReducer } from '../../src/redux/contactsSlice';
+import { persistReducer, persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import { filterReducer } from '../../src/redux/filterSlice';
 
-export const store = configureStore({
-  reducer: {
-    contacts: contactsReducer,
-    filter: filterReducer,
-  },
+const persistConfig = {
+  key: 'root',
+  storage,
+  // whitelist: [''], - for choosing the items that need to be added to local store
+  // blacklist: [''], - for choosing the items that DO NOT need to be added to local store
+};
+
+const rootReducer = combineReducers({
+  contacts: contactsReducer,
+  filter: filterReducer,
 });
 
-// const initialState = {
-//   contacts: [],
-//   filter: '',
-// };
+const persistedRootReducer = persistReducer(persistConfig, rootReducer);
 
-// export const add = createAction('contacts/add');
-// export const remove = createAction('contacts/remove');
-// export const filter = createAction('filters/filter');
+export const store = configureStore({
+  reducer: persistedRootReducer,
+});
 
-// export const contactsReducer = createReducer(initialState, builder =>
-//   builder
-//     .addCase(add, (state, action) => {
-//       state.contacts = [...state.contacts, action.payload];
-//       // state.contacts = state.push(action.payload);
-//     })
-//     .addCase(remove, (state, action) => {
-//       state.contacts = state.contacts.filter(
-//         contact => contact.id !== action.payload
-//       );
-//     })
-// );
-
-// export const filterReducer = createReducer(initialState, builder =>
-//   builder.addCase(filter, (state, action) => {
-//     state.filter = action.payload;
-//   })
-// );
+export const persistor = persistStore(store);

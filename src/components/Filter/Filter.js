@@ -1,6 +1,17 @@
+import { useSelector, useDispatch } from 'react-redux';
+import { filter } from '../../../src/redux/filterSlice';
 import { LabelFilter, InputFilter } from '../Filter/Filter.styled';
+import { getFilter } from '../../../src/redux/states';
 
-export const Filter = ({ value, onChange }) => {
+export const Filter = () => {
+  const filterValue = useSelector(getFilter);
+  const value = filterValue.filter;
+  const dispatch = useDispatch();
+
+  const onFilterChange = event => {
+    dispatch(filter(event.currentTarget.value));
+  };
+
   return (
     <>
       <LabelFilter>
@@ -8,7 +19,7 @@ export const Filter = ({ value, onChange }) => {
         <InputFilter
           type="text"
           value={value}
-          onChange={onChange}
+          onChange={onFilterChange}
           placeholder="Filter by name..."
           pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         ></InputFilter>

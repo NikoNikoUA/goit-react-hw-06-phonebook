@@ -1,8 +1,22 @@
-import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { add } from '../../../src/redux/contactsSlice';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { nanoid } from 'nanoid';
+
 import * as yup from 'yup';
 import { Formik, Form } from 'formik';
 import { Label } from './ContactForm.styled';
 import { Input, BtnAddContact, ErrorMsg } from './ContactForm.styled';
+import { getContacts } from '../../../src/redux/states';
+
+Notify.init({
+  borderRadius: '11px',
+  position: 'top-right',
+  width: '400px',
+  timeout: 4000,
+  clickToClose: true,
+  cssAnimationStyle: 'zoom',
+});
 
 const Schema = yup.object().shape({
   name: yup
@@ -25,7 +39,10 @@ const Schema = yup.object().shape({
     ),
 });
 
-export const ContactForm = ({ onSubmit }) => {
+export const ContactForm = () => {
+  const { contacts } = useSelector(getContacts);
+  console.log({ contacts });
+  const dispatch = useDispatch();
   return (
     <Formik
       initialValues={{
@@ -34,7 +51,23 @@ export const ContactForm = ({ onSubmit }) => {
       }}
       validationSchema={Schema}
       onSubmit={(values, actions) => {
-        onSubmit(values);
+        const { name, number } = values;
+        if (
+          contacts.some(
+            contact => contact.name.toLowerCase() === name.toLowerCase()
+          )
+        ) {
+          return Notify.info(`${name} is already among your contacts`);
+        }
+
+        console.log({ name, number });
+        const contact = {
+          name,
+          number,
+          id: nanoid(),
+        };
+        dispatch(add(contact));
+        Notify.success(`${name} has been successfully added to your contacts`);
         actions.resetForm();
       }}
     >
