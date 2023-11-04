@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import { Formik, Form } from 'formik';
 import { Label } from './ContactForm.styled';
 import { Input, BtnAddContact, ErrorMsg } from './ContactForm.styled';
-import { getContacts } from '../../../src/redux/states';
+import { getContacts } from '../../../src/redux/contactsSlice';
 
 Notify.init({
   borderRadius: '11px',

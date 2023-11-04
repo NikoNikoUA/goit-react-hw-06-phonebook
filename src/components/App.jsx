@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { ContactForm } from '../components/ContactForm/ContactForm';
 import { Filter } from '../components/Filter/Filter';
 import { ContactList } from '../components/ContactList/ContactList';
-import { getContacts } from '../../src/redux/states';
+import { getContacts } from '../../src/redux/contactsSlice';
 
 import {
   Container,
@@ -27,15 +27,6 @@ Notify.init({
 
 export const App = () => {
   const { contacts } = useSelector(getContacts);
-  // const [contacts, setContacts] = useState(
-  //   () => JSON.parse(localStorage.getItem('contacts')) ?? initialState
-  // );
-
-  // const [filter, setFilter] = useState('');
-
-  // useEffect(() => {
-  //   localStorage.setItem('contacts', JSON.stringify(contacts));
-  // }, [contacts]);
 
   return (
     <Container>
