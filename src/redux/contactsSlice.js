@@ -4,7 +4,6 @@ const contactsSlice = createSlice({
   name: 'contacts',
   initialState: {
     contacts: [],
-    filter: '',
   },
   reducers: {
     add(state, action) {
@@ -21,4 +20,4 @@ const contactsSlice = createSlice({
 export const contactsReducer = contactsSlice.reducer;
 export const { add, remove } = contactsSlice.actions;
 
-export const getContacts = state => state.contacts;
+export const getContacts = state => state.contacts.contacts;

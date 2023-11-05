@@ -5,8 +5,8 @@ import { getFilter } from '../../../src/redux/filterSlice';
 import { getContacts } from '../../../src/redux/contactsSlice';
 
 export const ContactList = () => {
-  const { contacts } = useSelector(getContacts);
-  const { filter } = useSelector(getFilter);
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
 
   const filterContacts = () => {
     return contacts.filter(contact =>

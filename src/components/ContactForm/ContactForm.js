@@ -40,8 +40,7 @@ const Schema = yup.object().shape({
 });
 
 export const ContactForm = () => {
-  const { contacts } = useSelector(getContacts);
-  console.log({ contacts });
+  const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
   return (
     <Formik
@@ -60,7 +59,6 @@ export const ContactForm = () => {
           return Notify.info(`${name} is already among your contacts`);
         }
 
-        console.log({ name, number });
         const contact = {
           name,
           number,

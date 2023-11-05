@@ -1,5 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { contactsReducer } from '../../src/redux/contactsSlice';
+import { filterReducer } from '../../src/redux/filterSlice';
 import {
   persistReducer,
   persistStore,
@@ -11,11 +12,11 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { filterReducer } from '../../src/redux/filterSlice';
 
 const persistConfig = {
   key: 'root',
   storage,
+  blacklist: ['filter'],
   // whitelist: [''], - for choosing the items that need to be added to local store
   // blacklist: [''], - for choosing the items that DO NOT need to be added to local store
 };
