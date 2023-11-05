@@ -6,14 +6,10 @@ import { getFilter } from '../../../src/redux/filterSlice';
 export const Filter = () => {
   const dispatch = useDispatch();
   const onFilterChange = event => {
-    const filtered = dispatch(filterValue(event.target.value));
-    console.log(filtered);
+    dispatch(filterValue(event.target.value));
   };
 
   const filter = useSelector(getFilter);
-  console.log(filter);
-  const value = filter.filterValue;
-  console.log(value);
 
   return (
     <>
@@ -21,7 +17,7 @@ export const Filter = () => {
         Find contacts by name
         <InputFilter
           type="text"
-          value={value}
+          value={filter}
           onChange={onFilterChange}
           placeholder="Filter by name..."
           pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
